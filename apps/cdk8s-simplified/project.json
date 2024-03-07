@@ -1,0 +1,56 @@
+{
+  "name": "cdk8s-simplified",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cdk8s-simplified/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/cdk8s-simplified",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "apps/cdk8s-simplified/src/main.ts",
+        "tsConfig": "apps/cdk8s-simplified/tsconfig.app.json",
+        "assets": ["apps/cdk8s-simplified/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "cdk8s-simplified:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "cdk8s-simplified:build:development"
+        },
+        "production": {
+          "buildTarget": "cdk8s-simplified:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
